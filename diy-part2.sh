@@ -21,8 +21,8 @@
 # [ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i '/set wireless.default_radio${devidx}.encryption=psk2+ccmp/a\\t\t\tset wireless.default_radio${devidx}.key=88888889' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 设置无线的国家代码为CN,wifi的默认功率为20
-# [ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i 's/country=US/country=CN/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-# [ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i '/set wireless.radio${devidx}.disabled=0/a\\t\t\tset wireless.radio${devidx}.txpower=20' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+[ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i 's/country=US/country=CN/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+[ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i '/set wireless.radio${devidx}.disabled=0/a\\t\t\tset wireless.radio${devidx}.txpower=20' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 设置5Gwifi名为Owrt，设置LED为蓝色关闭，绿色开启
 # sed -i "/uci commit luci/a uci set wireless.default_radio0.ssid='OWrt'\nuci commit wireless\nwifi reload" package/lean/default-settings/files/zzz-default-settings
