@@ -24,6 +24,10 @@
 [ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i 's/country=US/country=CN/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 [ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i '/set wireless.radio${devidx}.disabled=0/a\\t\t\tset wireless.radio${devidx}.txpower=20' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
+# 修改feeds中的软件源
+[ -f feeds.conf.default ] && sed -i 's|https://github.com/coolsnowwolf/packages|https://github.com/1774293824/packages|g' feeds.conf.default
+
+
 # 设置5Gwifi名为Owrt，设置LED为蓝色关闭，绿色开启
 # sed -i "/uci commit luci/a uci set wireless.default_radio0.ssid='OWrt'\nuci commit wireless\nwifi reload" package/lean/default-settings/files/zzz-default-settings
 # sed -i "/delete system.ntp.server/i\\\tset system.cfg048bba=led\n\\tset system.cfg048bba.default=0\n\\tset system.cfg048bba.name=Blue\n\\tset system.cfg048bba.sysfs=blue:status\n\\tset system.cfg048bba.trigger=none" package/lean/default-settings/files/zzz-default-settings
