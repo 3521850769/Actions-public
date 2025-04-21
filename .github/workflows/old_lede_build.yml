@@ -68,12 +68,6 @@ jobs:
         git checkout 7ea44fc419be2475a07e6e737d97cd44c5c3bf3d
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: 运行diy2.sh
-      run: |
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
-
     - name: 更新feeds订阅源
       run: |
         cd openwrt
@@ -86,7 +80,7 @@ jobs:
         chmod +x $DIY_P3_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        
+
         if grep -q "CONFIG_PACKAGE_luci-app-openclash=y" .config; then
           echo "检测到配置包含 openclash，执行 diy-part3.sh"
           $GITHUB_WORKSPACE/$DIY_P3_SH
