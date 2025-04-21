@@ -82,8 +82,11 @@ jobs:
     - name: 复制.config到根目录, 再运行diy3.sh
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_P2_SH
         chmod +x $DIY_P3_SH
         cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
+        
         if grep -q "CONFIG_PACKAGE_luci-app-openclash=y" .config; then
           echo "检测到配置包含 openclash，执行 diy-part3.sh"
           $GITHUB_WORKSPACE/$DIY_P3_SH
