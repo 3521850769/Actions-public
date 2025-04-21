@@ -68,19 +68,6 @@ jobs:
         git checkout 7ea44fc419be2475a07e6e737d97cd44c5c3bf3d
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: 使用SSH连接
-      if: ${{ github.event.inputs.open_ssh == '1' && !cancelled() }}
-      uses: P3TERX/ssh2actions@main
-      env:
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
-    - name: 更新feeds订阅源
-      run: cd openwrt && ./scripts/feeds update -a
-
-    - name: 安装feeds订阅源
-      run: cd openwrt && ./scripts/feeds install -a
-
     - name: 加载自定义配置的.sh文件
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
@@ -89,7 +76,20 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/$DIY_P3_SH
-    
+
+    - name: 更新feeds订阅源
+      run: cd openwrt && ./scripts/feeds update -a
+
+    - name: 安装feeds订阅源
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: 使用SSH连接
+      if: ${{ github.event.inputs.open_ssh == '1' && !cancelled() }}
+      uses: P3TERX/ssh2actions@main
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
     - name: 下载 dl 库
       id: package
       run: |
