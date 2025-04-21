@@ -4,6 +4,9 @@ echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 # 这个仓库的代码是不怎么更新的
 echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 
+# 修改feeds中的软件源
+[ -f feeds.conf.default ] && sed -i 's|https://github.com/coolsnowwolf/packages|https://github.com/1774293824/packages|g' feeds.conf.default
+
 # 大插件包,包含了上面的“kenzo”和“small”
 # echo 'src-git smpackage https://github.com/kenzok8/small-package' >>feeds.conf.default
 
