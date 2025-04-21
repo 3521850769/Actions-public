@@ -24,8 +24,6 @@
 [ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i 's/country=US/country=CN/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 [ -f package/kernel/mac80211/files/lib/wifi/mac80211.sh ] && sed -i '/set wireless.radio${devidx}.disabled=0/a\\t\t\tset wireless.radio${devidx}.txpower=20' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
-# 修改feeds中的软件源
-[ -f feeds.conf.default ] && sed -i 's|https://github.com/coolsnowwolf/packages|https://github.com/1774293824/packages|g' feeds.conf.default
 
 
 # 设置5Gwifi名为Owrt，设置LED为蓝色关闭，绿色开启
