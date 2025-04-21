@@ -61,27 +61,35 @@ jobs:
         git clone $REPO_URL -b master openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: 加载自定义订阅源 git checkout 到指定提交日期
+    - name: 加载自定义订阅源, 再 git checkout 到指定提交日期
       run: |
         chmod +x $DIY_P1_SH
         cd openwrt
         git checkout 7ea44fc419be2475a07e6e737d97cd44c5c3bf3d
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: 加载自定义配置的.sh文件
+    - name: 运行diy2.sh
       run: |
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
-        chmod +x $DIY_P3_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        $GITHUB_WORKSPACE/$DIY_P3_SH
 
     - name: 更新feeds订阅源
-      run: cd openwrt && ./scripts/feeds update -a
+      run: |
+        cd openwrt
+        ./scripts/feeds update -a && ./scripts/feeds install -a
 
-    - name: 安装feeds订阅源
-      run: cd openwrt && ./scripts/feeds install -a
+    - name: 复制.config到根目录, 再运行diy3.sh
+      run: |
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_P3_SH
+        cd openwrt
+        if grep -q "CONFIG_PACKAGE_luci-app-openclash=y" .config; then
+          echo "检测到配置包含 openclash，执行 diy-part3.sh"
+          $GITHUB_WORKSPACE/$DIY_P3_SH
+        else
+          echo "未检测到 openclash 配置，跳过 diy-part3.sh"
+        fi
 
     - name: 使用SSH连接
       if: ${{ github.event.inputs.open_ssh == '1' && !cancelled() }}
