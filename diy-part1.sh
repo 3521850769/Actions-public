@@ -1,8 +1,8 @@
 # 这个仓库的代码代码更新比较频繁
-echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
+# echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 
 # 这个仓库的代码是不怎么更新的
-echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
+# echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 
 # 修改feeds中的软件源
 # [ -f feeds.conf.default ] && sed -i 's|https://github.com/coolsnowwolf/packages|https://github.com/1774293824/packages|g' feeds.conf.default
@@ -13,3 +13,6 @@ echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.de
 # echo 'src-git kenzo https://github.com/1774293824/openwrt-packages' >>feeds.conf.default
 
 # echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
+
+
+echo 'src-git shidahuilang https://github.com/shidahuilang/openwrt-package' >>feeds.conf.default
